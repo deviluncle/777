@@ -1,0 +1,89 @@
+.menuTop {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #000c17;
+    line-height: 46px;
+    height: 46px;
+    padding: 0 16px;
+    z-index: 999;
+    .menuItems {
+        width: calc(100% - 120px);
+        float: left;
+        display: flex;
+        overflow-x: scroll;
+        .menuItem {
+            cursor: pointer;
+            min-width: 160px;
+            max-width: 160px;
+            text-align: center;
+            position: relative;
+            color: white;
+        }
+        /* 设置滚动条的样式 */
+        &::-webkit-scrollbar {
+            width: 12px;
+            height: 10px;
+        }
+        /* 滚动槽 */
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset006pxrgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        /* 滚动条滑块 */
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background:rgba(0,0,0,0.1);
+            -webkit-box-shadow: inset006pxrgba(0,0,0,0.5);
+        }
+        &::-webkit-scrollbar-thumb:window-inactive {
+            background:rgba(255,0,0,0.4);
+        }
+    }
+    .active {
+        color: #EE9611 !important;
+        font-weight: 550;
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            height: 3px;
+            width: 100px;
+            left: 50%;
+            margin-left: -50px;
+            background: #EE9611;
+        }
+    }
+    .userSetting {
+        float: right;
+    }
+}
+
+.bodyBox {
+    position: relative;
+    top: 46px;
+    height: calc(100vh - 46px);
+}
+
+.home {
+    height: 100%;
+    background-image: url('../images/cristiano.png');
+    width: 100%;
+    background-size: cover;
+    p {
+        color: white;
+        font-size: 24px;
+        letter-spacing: 3px;
+        text-align: right;
+        font-family: "宋体";
+        &:nth-of-type(1) {
+            position: relative;
+            top: 16px;
+            margin-right: 64px;
+        }
+        &:nth-of-type(2) {
+            margin-right: 16px;
+        }
+    }
+}
