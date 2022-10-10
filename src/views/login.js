@@ -28,7 +28,7 @@ class Login extends React.Component {
         if (this.state.userName === '' || this.state.password === '') {
             message.error('用户名或密码不能为空!');
         } else {
-            api.post('/say', { name: '123' }).then(res => {
+            api.post('/say', { userName: this.state.userName, password: this.state.password }).then(res => {
                 message.success('登录成功');
                 this.props.loginSuccessed();
             }).catch(err => {

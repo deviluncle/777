@@ -1,11 +1,14 @@
 import React from 'react';
 import '../styles/home.scss'
-import { Menu, Dropdown, message } from 'antd';
-import {  UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Menu, Dropdown, message, Modal } from 'antd';
+import {  UserOutlined, LogoutOutlined, ExclamationCircleOutlined  } from '@ant-design/icons';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Work from './work'
 import Life from './life'
+import Blog from './blog'
 
+
+const { confirm } = Modal
 
 class Home extends React.Component {
     constructor(props) {
@@ -16,19 +19,38 @@ class Home extends React.Component {
         this.element = this.element.bind(this);
     }
 
+    componentDidMount() {
+        if (localStorage.getItem('activeMenu')) {
+            console.log(localStorage.getItem('activeMenu'))
+            this.setState({activeMenu: Number(localStorage.getItem('activeMenu'))})
+        }
+    }
+
     handleMenuClick = ({key}) => {
+        const _this = this
         if (key == '2') {
-            this.props.logout()
+            confirm({
+                title: '退出博客',
+                icon: <ExclamationCircleOutlined />,
+                content: '确认要退出登录吗？',
+                onOk() {
+                    _this.props.logout()
+                },
+                onCancel() {
+                    console.log('Cancel');
+                },
+            });
         }
         message.info('Click');
     }
 
     changeActiveMenu (idx) {
         this.setState({activeMenu: idx})
+        localStorage.setItem('activeMenu', idx)
     }
 
-    element() {
-        if (this.state.activeMenu === 0) {
+    element = () => {
+        if (this.state.activeMenu === 0 && (window.location.pathname === '/home' || window.location.pathname === '/')) {
             return <div className="home">
                         <p>再见少年拉满弓，</p>
                         <p>不惧岁月不惧风。</p>
@@ -52,6 +74,10 @@ class Home extends React.Component {
                 label: '生活记录',
                 key: '3',
                 link: '/life'
+            },{
+                label: '测试学习',
+                key: '4',
+                link: '/blog'
             },
         ]
         const userSettungMenu = (
@@ -80,10 +106,8 @@ class Home extends React.Component {
                 onClick={() => this.changeActiveMenu(index)}
                 className={'menuItem ' + ( this.state.activeMenu === index ? 'active': '') }>
                 {val.label}
-            </Link>
+            </Link> 
         )
-        
-        let homeELement = this.element();
 
         return(
             <Router>
@@ -99,10 +123,10 @@ class Home extends React.Component {
                         </div>
                     </div>
                     <div className="bodyBox">
+                        {this.element()}
                         <Route path="/work" component={Work}/>
                         <Route path="/life" component={Life}/>
-
-                        {homeELement}
+                        <Route path="/blog" component={Blog}/>
                     </div>
                 </div>
             </Router>

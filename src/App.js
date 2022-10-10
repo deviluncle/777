@@ -3,7 +3,6 @@ import auth from './utils/auth'
 import Login from './views/login'
 import Home from './views/home'
 
-
 class App extends React.Component {
 
   loginSuccessed() {
@@ -14,6 +13,7 @@ class App extends React.Component {
   logout() {
     auth.clearToken()
     window.location.reload()
+    localStorage.removeItem('activeMenu')
   }
 
   render() {

@@ -12,7 +12,17 @@ const api = {
             url: path,
             data: data
         }).then(res => {
-
+            return Promise.resolve(res);
+        }).catch(err => {
+            return Promise.reject(err)
+        })
+    },
+    get(path) {
+        return instance({
+            method: 'get',
+            url: path,
+        }).then(res => {
+            return Promise.resolve(res);
         }).catch(err => {
             return Promise.reject(err)
         })
